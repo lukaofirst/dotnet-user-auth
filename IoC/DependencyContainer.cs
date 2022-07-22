@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Infraestructure.Data;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace IoC
 {
@@ -7,6 +8,7 @@ namespace IoC
         public static void StartServices(IServiceCollection services)
         {
             // Data Context
+            services.AddSingleton<MongoDBContext>();
 
             // Repositories
 
