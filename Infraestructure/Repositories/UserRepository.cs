@@ -1,7 +1,6 @@
 ﻿using Core.Entities;
 using Core.Interfaces.Repositories;
 using Infraestructure.Data;
-using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace Infraestructure.Repositories
@@ -38,11 +37,6 @@ namespace Infraestructure.Repositories
         {
             await _userCollection.InsertOneAsync(User);
             return User;
-        }
-
-        private static FilterDefinition<User> FilterByObjectId(string objectId)
-        {
-            return Builders<User>.Filter.Eq(x => x.id!.ToString(), ObjectId.Parse(objectId).ToString());
         }
 
         private static FilterDefinition<User> EmptyFilter()

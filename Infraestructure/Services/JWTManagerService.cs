@@ -30,8 +30,10 @@ namespace Infraestructure.Services
                 throw new Exception("No user found");
             }
 
-            var tokenHandler = new JwtSecurityTokenHandler();
-            tokenHandler.SetDefaultTimesOnTokenCreation = false;
+            var tokenHandler = new JwtSecurityTokenHandler
+            {
+                SetDefaultTimesOnTokenCreation = false
+            };
             var tokenKey = Encoding.UTF8.GetBytes(_jwtConfig.Value.Key!);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
