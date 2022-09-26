@@ -1,13 +1,8 @@
-﻿using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
-
-namespace Core.Entities
+﻿namespace Core.Entities
 {
     public class User
     {
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string? id { get; set; }
+        public object? _id { get; set; }
         public string? email { get; set; }
         public string? password { get; set; }
     }

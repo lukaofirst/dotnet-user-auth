@@ -8,7 +8,7 @@ namespace Application.DTOs
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string? id { get; set; }
+        public string? _id { get; set; }
         [Required]
         [EmailAddress]
         public string? email { get; set; }

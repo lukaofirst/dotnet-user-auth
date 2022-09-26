@@ -1,6 +1,7 @@
 ﻿using Core.Entities;
 using Core.Interfaces.Repositories;
 using Infraestructure.Data;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace Infraestructure.Repositories
@@ -35,6 +36,9 @@ namespace Infraestructure.Repositories
 
         public async Task<User> InsertOne(User User)
         {
+            var generateObjectId = ObjectId.GenerateNewId();
+            User._id = generateObjectId;
+
             await _userCollection.InsertOneAsync(User);
             return User;
         }
