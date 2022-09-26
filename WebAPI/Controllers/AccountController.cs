@@ -1,5 +1,5 @@
-﻿using Core.Entities;
-using Core.Interfaces.Services;
+﻿using Application.DTOs;
+using Application.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -29,7 +29,7 @@ namespace WebAPI.Controllers
 
         [AllowAnonymous]
         [HttpPost("Login")]
-        public async Task<IActionResult> Login(User user)
+        public async Task<IActionResult> Login(UserDTO user)
         {
             var token = await _jwtManagerService.Authenticate(user);
 
@@ -43,7 +43,7 @@ namespace WebAPI.Controllers
 
         [AllowAnonymous]
         [HttpPost("Register")]
-        public async Task<IActionResult> Register(User user)
+        public async Task<IActionResult> Register(UserDTO user)
         {
             var emailExist = await _userService.FindByEmail(user.email!);
 
