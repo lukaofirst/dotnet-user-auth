@@ -1,6 +1,7 @@
-﻿using Core.Entities;
+﻿using Application.DTOs;
+using Application.Interfaces.Services;
+using Core.Entities;
 using Core.Interfaces.Repositories;
-using Core.Interfaces.Services;
 using Core.Settings;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -8,7 +9,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace Infraestructure.Services
+namespace Application.Services
 {
     public class JWTManagerService : IJWTManagerService
     {
@@ -21,15 +22,20 @@ namespace Infraestructure.Services
             _userRepository = userRepository;
         }
 
-        public async Task<Token> Authenticate(User user)
+        public async Task<Token> Authenticate(UserDTO user)
         {
             var userExist = await _userRepository.FindByEmail(user.email!);
 
-            if (userExist == null || !BCrypt.Net.BCrypt.Verify(user.password, userExist.password)) 
+            if (userExist == null || !BCrypt.Net.BCrypt.Verify(user.password, userExist.password))
             {
                 throw new Exception("No user found");
             }
 
+            return GenerateToken(user);
+        }
+
+        private Token GenerateToken(UserDTO user)
+        {
             var tokenHandler = new JwtSecurityTokenHandler
             {
                 SetDefaultTimesOnTokenCreation = false
