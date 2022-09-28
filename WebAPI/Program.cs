@@ -8,8 +8,7 @@ builder.Services.Configure<SettingsConfig>(builder.Configuration.GetSection("Set
 builder.Services.Configure<JWTConfig>(builder.Configuration.GetSection("JWTConfig"));
 builder.Services.AddMvc().AddJsonOptions(options => options.JsonSerializerOptions.PropertyNameCaseInsensitive = true);
 
-var appSettings = builder.Configuration.AddJsonFile("appsettings.json").Build();
-DependencyContainer.StartServices(builder.Services, appSettings);
+builder.Services.StartServices(builder.Configuration);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
