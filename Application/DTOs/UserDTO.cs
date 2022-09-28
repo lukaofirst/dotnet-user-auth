@@ -1,6 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Application.DTOs
 {
@@ -8,6 +9,7 @@ namespace Application.DTOs
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
+        [JsonIgnore]
         public string? _id { get; set; }
         [Required]
         [EmailAddress]
