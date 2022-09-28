@@ -41,17 +41,18 @@ namespace Application.Services
                 SetDefaultTimesOnTokenCreation = false
             };
             var tokenKey = Encoding.UTF8.GetBytes(_jwtConfig.Value.Key!);
+            var expirationTime = DateTime.UtcNow.AddMinutes(10);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]
                   {
-                    new Claim(ClaimTypes.Email, user.email!)
+                    new Claim(ClaimTypes.Email, user.email!),
                   }),
-                Expires = DateTime.UtcNow.AddMinutes(10),
+                Expires = expirationTime,
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenKey), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
-            return new Token { token = tokenHandler.WriteToken(token) };
+            return new Token { token = tokenHandler.WriteToken(token), expiresAt = expirationTime };
         }
     }
 }

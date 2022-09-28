@@ -48,6 +48,7 @@ namespace IoC
                      ValidIssuer = config.GetValue<string>("JWT:Issuer"),
                      ValidAudience = config.GetValue<string>("JWT:Audience"),
                      IssuerSigningKey = new SymmetricSecurityKey(key),
+                     ClockSkew = TimeSpan.Zero // By default, adds an extra time of 5 minutes after token expires
                  };
              });
 
